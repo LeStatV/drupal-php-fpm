@@ -51,5 +51,5 @@ RUN set -ex; \
 
 WORKDIR /app/
 
-# Add composer executables to our path.
+# Add composer executables to our path
 ENV PATH="/home/.composer/vendor/bin:${PATH}"
