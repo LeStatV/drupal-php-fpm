@@ -49,7 +49,15 @@ RUN set -ex; \
   mkdir -p -m +w /var/www/html/reference-data; \
   chown -R www-data:www-data /app
 
-WORKDIR /app/
+WORKDIR /app/html/
 
 # Add composer executables to our path
 ENV PATH="/home/.composer/vendor/bin:${PATH}"
+
+RUN curl -L "https://download.newrelic.com/php_agent/archive/9.3.0.248/newrelic-php5-9.3.0.248-linux-musl.tar.gz" | tar -C /tmp -zx \
+  && export NR_INSTALL_SILENT=1 \
+  && export NR_INSTALL_USE_CP_NOT_LN=1 \
+  && /tmp/newrelic-php5-*/newrelic-install install \
+  && rm -rf /tmp/newrelic-php5-* /tmp/nrinstall* \
+  && mkdir -p /var/log/newrelic \
+  && chown www-data:www-data /var/log/newrelic
