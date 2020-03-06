@@ -8,11 +8,13 @@ LABEL org.label-schema.name="Alpine with PHP7-FPM and Drush launcher" \
 RUN apk add --update --no-cache bash
 
 # PHP modules and build dependencies
-RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS libtool imagemagick-dev \
+RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS libtool imagemagick-dev libmemcached-dev \
   && pecl install imagick \
   && docker-php-ext-enable imagick \
+  && yes '' | pecl install memcached \
+  && docker-php-ext-enable memcached \
   && apk del .phpize-deps \
-  && apk add --no-cache --virtual .imagick-runtime-deps imagemagick
+  && apk add --no-cache --virtual .imagick-runtime-deps imagemagick libmemcached
 
 # Use GNU Iconv
 RUN apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted
