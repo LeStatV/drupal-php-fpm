@@ -56,7 +56,7 @@ WORKDIR /app/html/
 # Add composer executables to our path
 ENV PATH="/home/.composer/vendor/bin:${PATH}"
 
-RUN curl -L "https://download.newrelic.com/php_agent/archive/9.3.0.248/newrelic-php5-9.3.0.248-linux-musl.tar.gz" | tar -C /tmp -zx \
+RUN curl -L "https://download.newrelic.com/php_agent/archive/9.14.0.290/newrelic-php5-9.14.0.290-linux-musl.tar.gz" | tar -C /tmp -zx \
   && export NR_INSTALL_SILENT=1 \
   && export NR_INSTALL_USE_CP_NOT_LN=1 \
   && /tmp/newrelic-php5-*/newrelic-install install \
